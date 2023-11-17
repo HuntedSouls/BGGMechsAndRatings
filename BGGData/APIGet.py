@@ -3,9 +3,21 @@ import time
 import xml.etree.ElementTree as ET  # for parsing XML
 import bs4 as bs
 import pandas as pd
-def GetBGGBoardgames():
+import glob
+def AggregateCSV(folderPath):
+    csvList = glob.glob(folderPath+'/*.csv')
+    dataFrame = pd.DataFrame()
+    for csvFile in csvList:
+        try:
+            data = pd.read_csv(csvFile)
+            dataFrame = pd.concat([dataFrame,data],ignore_index=True)
+        except pd.errors.EmptyDataError:
+            print(csvFile," is empty and was skipped")
+    dataFrame.to_csv("RawData/Aggregated.csv",index=False)
+
+def GetBGGBoardgames(startingID):
     stillGettingRight = True;
-    currentID=1
+    currentID=startingID
     while(stillGettingRight):
         time.sleep(2)
         requestURL = "https://boardgamegeek.com/xmlapi2/thing?id="
@@ -17,7 +29,10 @@ def GetBGGBoardgames():
         request = requests.get(requestURL)
         parsed = bs.BeautifulSoup(request.text, "lxml-xml")
         data=[]
-        for item in parsed.find_all('item'):
+        itemList = parsed.find_all('item')
+        # if len(itemList) == 0:
+        #     stillGettingRight=False;
+        for item in itemList:
             entry={}
             itemID = item.get("id")
             entry["gameID"]= itemID
@@ -49,5 +64,5 @@ def GetBGGBoardgames():
         if(dataFrame.empty):
             print("Got nothing AAAAAAAAAAAA")
         dataFrame.to_csv("RawData/upTo"+str(currentID)+".csv",index=False)
-        if currentID>100000:
+        if currentID>1000000:
             stillGettingRight=False

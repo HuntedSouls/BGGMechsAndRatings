@@ -15,12 +15,12 @@ if __name__ == '__main__':
     rankedDF = dataFrame.query("subtype_rank != 'Not Ranked'")
 
     # Fill nan in average so we can filter 0s
-    rankedDF["bayesaverage"] = rankedDF["bayesaverage"].fillna(0)
+    rankedDF["bayesaverage"] = rankedDF.loc[:,"bayesaverage"].fillna(0)
     rankedDF = rankedDF.query("bayesaverage != 0.0")
     #DataAnalysis.CountNonRanked(dataFrame)
     reformated = reformatData.addMechanics(rankedDF)
     print(reformated.head(10))
-    reformated.to_csv("RawData/ReformatedData.csv")
+    reformated.to_csv("RawData/ReformattedData.csv")
 
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

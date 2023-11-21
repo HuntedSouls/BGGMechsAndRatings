@@ -3,38 +3,53 @@ import math
 import pandas as pd
 import matplotlib
 import matplotlib.pyplot as plt
-def FilterData(dataFrame):
+def FilterRankData(dataFrame):
     #remove all subtyperanks nan so we can filer by them
     #filterDF = dataFrame[dataFrame['subtype_rank'].notna()]
-    rankedDF = dataFrame.query("subtype_rank != 'Not Ranked'")
+    blacklistDF = dataFrame.query("subtype_rank != 'Not Ranked'")
 
     #Fill nan in average so we can filter 0s
-    rankedDF["bayesaverage"] =rankedDF["bayesaverage"].fillna(0)
-    rankedDF = rankedDF.query("bayesaverage != 0.0")
+    blacklistDF["bayesaverage"] =blacklistDF["bayesaverage"].fillna(0)
+    blacklistDF = blacklistDF.query("bayesaverage != 0.0")
 
-    blacklistedGameIDs=rankedDF["gameID"].unique()
-    filteredDF = dataFrame
-    for gameID in blacklistedGameIDs:
-        filteredDF = filteredDF.loc[filteredDF['gameID'] != gameID]
+    whiteListedIDS=blacklistDF["gameID"].unique()
+    filteredDF = dataFrame.loc[dataFrame['gameID'].isin(whiteListedIDS)]
+    # for gameID in blacklistedGameIDs:
+    #     filteredDF = filteredDF.loc[not filteredDF['gameID'].isin(gameID)]
+    return filteredDF
 
+def FilterImplementationData(filteredDF,gameIDList,counter):
     implList = filteredDF.groupby("gameID")["implementation"].apply(list).reset_index(name='impls')
-
+    #counter = 0
+    # gameIDList=filteredDF["gameID"].unique()
     # filter through implementations
-    solvedGameID=[]
-    for gameID in rankedDF["gameID"]:
-        implementations = implList.loc[implList['gameID'] == gameID]
-        cleaned = [x for x in implementations if str(x) != 'nan']
-        listOfGameIDS =[]
-        listOfGameIDS.append(gameID)
-        solvedGameID.append(gameID)
-        for name in cleaned:
-            foundGames = rankedDF.loc[rankedDF['name'] == name]
-            if not foundGames.empty:
-                newID =foundGames.iloc[0]["gameID"]
-                listOfGameIDS.append(newID)
-                solvedGameID.append(newID)
-        rankedDF = HandleReimplementations(rankedDF,listOfGameIDS)
-        print("finished game id: ",gameID)
+    solvedGameID = []
+    for gameID in gameIDList:
+        if not solvedGameID.__contains__(gameID):
+            implementations = implList.loc[implList['gameID'] == gameIDList[counter]]
+            cleaned = [x for x in implementations if str(x) != 'nan']
+            listOfGameIDS = [gameIDList[counter]]
+            solvedGameID.append(gameIDList[counter])
+            for name in cleaned:
+                foundGames = filteredDF.loc[filteredDF['name'] == name]
+                if not foundGames.empty:
+                    newID = foundGames.iloc[0]["gameID"]
+                    listOfGameIDS.append(newID)
+                    solvedGameID.append(newID)
+            filteredDF = HandleReimplementations(filteredDF, listOfGameIDS)
+        else:
+            print("already done this! ",gameID)
+        if counter >= len(gameIDList):
+            filteredDF.to_csv("RawData/ReformattedData_filterTest_" + str(counter) + ".csv")
+            break
+        counter = counter+1
+        if counter%1000==0:
+            filteredDF.to_csv("RawData/ReformattedData_filterTest_"+str(counter)+".csv")
+            print("created save point: ", counter)
+
+        #print("finished gameID : ", gameID)
+
+    return filteredDF
 
 def HandleReimplementations(rankedDF, listOfGameIDS):
     mechList = rankedDF.groupby("gameID")["mechanic"].apply(list).reset_index(name='mechs')
@@ -75,6 +90,7 @@ def HandleReimplementations(rankedDF, listOfGameIDS):
         mainGame["average"] = weightedAverage(voteCountList,avgRatingList)
         mainGame["bayesaverage"] = weightedAverage(voteCountList, baeysianRatingList)
         mainGame["stddev"] =mixStddev(voteCountList,stdRatingList)
+        mainGame["usersrated"] =sum(voteCountList)
         #add line to dataframe
     return pd.concat([rankedDF,mainGame], ignore_index=True)
 

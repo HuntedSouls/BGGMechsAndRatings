@@ -8,7 +8,6 @@ def repeatUniqueGameIDS(df):
     # count = 0
     for series_name, series in df.items():
         # print(series_name)
-
         if series_name != "implementation" and series_name != "mechanic":
             data[series_name] = []
         else:

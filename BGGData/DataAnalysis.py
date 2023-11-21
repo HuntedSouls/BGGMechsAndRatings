@@ -25,9 +25,9 @@ def FilterImplementationData(filteredDF,gameIDList,counter):
     # filter through implementations
     solvedGameID = []
     for gameID in gameIDList:
-        if not solvedGameID.__contains__(gameID):
-            implementations = implList.loc[implList['gameID'] == gameIDList[counter]]
-            cleaned = [x for x in implementations if str(x) != 'nan']
+        implementations = implList.loc[implList['gameID'] == gameIDList[counter]]
+        if (not solvedGameID.__contains__(gameID)) and (not implementations.empty):
+            cleaned = [x for x in implementations.iloc[0]["impls"] if str(x) != 'nan']
             listOfGameIDS = [gameIDList[counter]]
             solvedGameID.append(gameIDList[counter])
             for name in cleaned:
@@ -37,9 +37,9 @@ def FilterImplementationData(filteredDF,gameIDList,counter):
                     listOfGameIDS.append(newID)
                     solvedGameID.append(newID)
             filteredDF = HandleReimplementations(filteredDF, listOfGameIDS)
-        else:
-            print("already done this! ",gameID)
-        if counter >= len(gameIDList):
+        # else:
+        #     print("already done this! ",gameID)
+        if counter >= len(gameIDList)-1:
             filteredDF.to_csv("RawData/ReformattedData_filterTest_" + str(counter) + ".csv")
             break
         counter = counter+1
@@ -68,6 +68,7 @@ def HandleReimplementations(rankedDF, listOfGameIDS):
     #do some magic if they found equal games
     mainGame = pd.Series()
     if len(equal)>0:
+        # print("IVE found some equals! they are:", equal)
         avgRatingList =[]
         baeysianRatingList =[]
         stdRatingList =[]
@@ -83,7 +84,8 @@ def HandleReimplementations(rankedDF, listOfGameIDS):
         #define the older year to be the entry and delete all "tied" games
         olderYear = min(yearList)
         olderGameID = equal[yearList.index(olderYear)]
-        mainGame = rankedDF.iloc[0][rankedDF['yearpublished'] == olderGameID]
+        mainGame = rankedDF.loc[rankedDF['gameID'] == olderGameID]
+        mainGame = mainGame.iloc[0]
         for gameID in equal:
             rankedDF = rankedDF[rankedDF["gameID"] != gameID]
         #and do some math see combine averages and stdeviation
@@ -92,16 +94,20 @@ def HandleReimplementations(rankedDF, listOfGameIDS):
         mainGame["stddev"] =mixStddev(voteCountList,stdRatingList)
         mainGame["usersrated"] =sum(voteCountList)
         #add line to dataframe
-    return pd.concat([rankedDF,mainGame], ignore_index=True)
+    if not mainGame.empty:
+        newDataFrame=pd.concat([rankedDF,mainGame.to_frame().T])
+    else:
+        newDataFrame = rankedDF
+    return newDataFrame
 
 def weightedAverage(weights,averages):
-    sum = 0
+    total = 0
     for i in range(len(averages)):
-        sum = sum + averages[i]*weights[i]
-    return sum/(sum(weights))
+        total = total + averages[i]*weights[i]
+    return total/(sum(weights))
 
 def mixStddev(sameplsizes,stddevs):
-    sum = 0
+    total = 0
     for i in range(len(stddevs)):
-        sum = sum + (stddevs[i]**2)/sameplsizes[i]
-    return math.sqrt(sum)
+        total = total + (stddevs[i]**2)/sameplsizes[i]
+    return math.sqrt(total)

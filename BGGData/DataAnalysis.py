@@ -74,6 +74,7 @@ def HandleReimplementations(rankedDF, listOfGameIDS):
         stdRatingList =[]
         voteCountList=[]
         yearList=[]
+        equal.append(listOfGameIDS[0])
         for gameID in equal:
             selected = rankedDF.loc[rankedDF['gameID'] == gameID]
             avgRatingList.append(selected.iloc[0]["average"])
@@ -88,7 +89,7 @@ def HandleReimplementations(rankedDF, listOfGameIDS):
         mainGame = mainGame.iloc[0]
         #Also remove the original
         for gameID in equal:
-            rankedDF = rankedDF[rankedDF["gameID"] != gameID & ~rankedDF["name"].isna()]
+            rankedDF = rankedDF[~((rankedDF["gameID"] == gameID) & (~rankedDF["name"].isna()))]
         #and do some math see combine averages and stdeviation
         mainGame["average"] = weightedAverage(voteCountList,avgRatingList)
         mainGame["bayesaverage"] = weightedAverage(voteCountList, baeysianRatingList)
@@ -96,7 +97,7 @@ def HandleReimplementations(rankedDF, listOfGameIDS):
         mainGame["usersrated"] =sum(voteCountList)
         #add line to dataframe
     if not mainGame.empty:
-        rankedDF = rankedDF[rankedDF["gameID"] != listOfGameIDS[0]]
+        rankedDF = rankedDF[~((rankedDF["gameID"] == olderGameID) & (~rankedDF["name"].isna()))]
         newDataFrame=pd.concat([rankedDF,mainGame.to_frame().T])
     else:
         newDataFrame = rankedDF

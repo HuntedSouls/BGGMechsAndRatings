@@ -17,10 +17,12 @@ if __name__ == '__main__':
     savepointDF = pd.read_csv("ReformattedData_filterTest.csv")
 
     gameIDList = savepointDF["gameID"].unique()
-    counter = 0 # last save point!
-    # savepointDF = pd.read_csv("RawData/ReformattedData_filterTest_"+str(counter)+".csv")
+    counter = 1000 # last save point!
+    # savepointDF = pd.read_csv("RawData/ReformattedData_filterTest_"+str(counter)+"_v2.csv")
     filteredDF = DataAnalysis.FilterImplementationData(savepointDF,gameIDList,counter)
     filteredDF.to_csv("ReformattedData_implementationTest_v2.csv")
 
+    # mechanizedDF = reformatData.addMechanics(savepointDF)
+    # mechanizedDF.to_csv("ReformattedData_final.csv")
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

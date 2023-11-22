@@ -14,7 +14,7 @@ if __name__ == '__main__':
     # reformated = reformatData.addMechanics(dataFrame)
     #print(reformated.head(10))
     #filteredDF.to_csv("ReformattedData_filterTest.csv")
-    savepointDF = pd.read_csv("ReformattedData_implementationTest_v2.csv")
+    savepointDF = pd.read_csv("ReformattedData_final.csv")
 
     # gameIDList = savepointDF["gameID"].unique()
     # counter = 1000 # last save point!
@@ -22,7 +22,11 @@ if __name__ == '__main__':
     # filteredDF = DataAnalysis.FilterImplementationData(savepointDF,gameIDList,counter)
     # filteredDF.to_csv("ReformattedData_implementationTest_v2.csv")
 
-    mechanizedDF = reformatData.addMechanics(savepointDF)
-    mechanizedDF.to_csv("ReformattedData_final.csv")
+    # mechanizedDF = reformatData.addMechanics(savepointDF)
+    # mechanizedDF.to_csv("ReformattedData_final.csv")
+
+    #filter empty names
+    cleanedDF = savepointDF.dropna(subset=["name"])
+    cleanedDF.to_csv("ReformattedData_final_cleaned.csv")
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

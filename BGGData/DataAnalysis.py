@@ -40,11 +40,11 @@ def FilterImplementationData(filteredDF,gameIDList,counter):
         # else:
         #     print("already done this! ",gameID)
         if counter >= len(gameIDList)-1:
-            filteredDF.to_csv("RawData/ReformattedData_filterTest_" + str(counter) + ".csv")
+            filteredDF.to_csv("RawData/ReformattedData_filterTest_" + str(counter) + "_v2.csv")
             break
         counter = counter+1
         if counter%1000==0:
-            filteredDF.to_csv("RawData/ReformattedData_filterTest_"+str(counter)+".csv")
+            filteredDF.to_csv("RawData/ReformattedData_filterTest_"+str(counter)+"_v2.csv")
             print("created save point: ", counter)
 
         #print("finished gameID : ", gameID)
@@ -86,8 +86,9 @@ def HandleReimplementations(rankedDF, listOfGameIDS):
         olderGameID = equal[yearList.index(olderYear)]
         mainGame = rankedDF.loc[rankedDF['gameID'] == olderGameID]
         mainGame = mainGame.iloc[0]
+        #Also remove the original
         for gameID in equal:
-            rankedDF = rankedDF[rankedDF["gameID"] != gameID]
+            rankedDF = rankedDF[rankedDF["gameID"] != gameID & ~rankedDF["name"].isna()]
         #and do some math see combine averages and stdeviation
         mainGame["average"] = weightedAverage(voteCountList,avgRatingList)
         mainGame["bayesaverage"] = weightedAverage(voteCountList, baeysianRatingList)
@@ -95,6 +96,7 @@ def HandleReimplementations(rankedDF, listOfGameIDS):
         mainGame["usersrated"] =sum(voteCountList)
         #add line to dataframe
     if not mainGame.empty:
+        rankedDF = rankedDF[rankedDF["gameID"] != listOfGameIDS[0]]
         newDataFrame=pd.concat([rankedDF,mainGame.to_frame().T])
     else:
         newDataFrame = rankedDF

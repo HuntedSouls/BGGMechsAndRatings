@@ -1,0 +1,192 @@
+,Hamming,Jaccard,Cosin
+Three Dimensional Movement,0,23,23
+Sudden Death Ending,0,41,26
+Auction: Turn Order Until Pass,0,38,74
+Closed Economy Auction,0,38,74
+Ordering,0,42,51
+Negotiation,0,21,20
+Roles with Asymmetric Information,0,20,10
+Traitor Game,0,20,10
+Ladder Climbing,0,1,9
+Moving Multiple Units,0,0,0
+Predictive Bid,0,1,9
+Crayon Rail System,0,47,13
+Hidden Movement,0,34,75
+Command Cards,0,71,67
+Speed Matching,0,74,59
+Lose a Turn,0,50,22
+Once-Per-Game Abilities,0,57,48
+Matching,0,50,22
+Die Icon Resolution,0,49,46
+Re-rolling and Locking,0,49,46
+Alliances,0,21,20
+Investment,0,16,33
+Auction: Once Around,0,25,60
+Constrained Bidding,0,73,78
+Hidden Victory Points,0,36,8
+Chaining,0,28,17
+Random Production,0,6,34
+Bias,0,62,53
+Programmed Movement,0,22,40
+Highest-Lowest Scoring,0,8,8
+Melding and Splaying,0,4,7
+Score-and-Reset Game,0,44,58
+Turn Order: Stat-Based,0,16,33
+Layering,0,4,7
+Map Addition,0,32,27
+Multi-Use Cards,0,29,6
+Increase Value of Unchosen Resources,0,27,5
+Static Capture,0,46,56
+Tech Trees / Tech Tracks,0,0,0
+Auction: Dutch,0,9,32
+Player Judge,0,61,61
+Action Drafting,0,54,1
+Selection Order Bid,0,75,64
+Minimap Resolution,0,64,43
+Stat Check Resolution,0,33,25
+Action Timer,0,11,15
+Flicking,0,77,68
+Movement Template,0,14,54
+"I Cut, You Choose",0,53,50
+Hot Potato,0,43,41
+Mancala,0,72,55
+Automatic Resource Growth,0,27,5
+Turn Order: Claim Action,0,27,5
+Rondel,0,10,29
+Advantage Token,0,27,5
+Auction: Sealed Bid,0,38,11
+Order Counters,0,48,44
+Prisoner's Dilemma,0,21,20
+Turn Order: Auction,0,73,11
+Singing,0,7,24
+Tags,0,29,6
+Bingo,0,26,21
+Critical Hits and Failures,0,33,25
+Force Commitment,0,18,6
+Multiple Maps,0,0,0
+Resource to Move,0,13,4
+Worker Placement with Dice Workers,0,36,14
+Interrupts,0,13,76
+Map Deformation,0,59,16
+Ownership,0,16,33
+Single Loser Game,0,5,2
+Legacy Game,0,57,48
+Turn Order: Random,0,24,18
+Cube Tower,0,79,63
+Narrative Choice / Paragraph,0,2,36
+Elapsed Real Time Ending,0,11,15
+Physical Removal,0,5,2
+Finale Ending,0,39,65
+Turn Order: Time Track,0,10,29
+Pieces as Map,0,32,27
+Action Retrieval,0,30,70
+Targeted Clues,0,70,38
+Impulse Movement,0,23,23
+Loans,0,16,33
+Map Reduction,0,59,16
+Turn Order: Pass Order,0,8,66
+Auction: Fixed Placement,0,73,78
+Auction: Multiple Lot,0,73,78
+Kill Steal,0,3,79
+Follow,0,54,1
+Catch the Leader,0,58,62
+Tug of War,0,41,26
+Turn Order: Role Order,0,60,28
+Bribery,0,21,20
+Pattern Movement,0,46,56
+Move Through Deck,0,4,7
+Slide/Push,0,19,12
+Auction: Dutch Priority,0,31,47
+Delayed Purchase,0,29,42
+Auction: Dexterity,0,9,32
+Relative Movement,0,76,35
+Passed Action Token,0,3,19
+Different Dice Movement,0,3,19
+Auction: English,0,25,60
+Induction,0,55,52
+Drawing,0,45,69
+King of the Hill,0,19,12
+Neighbor Scope,0,6,34
+Questions and Answers,0,24,18
+Bids As Wagers,0,67,39
+Resource Queue,0,66,73
+Auction Compensation,0,73,78
+Grid Coverage,1,35,30
+Communication Limits,2,70,38
+Action/Event,3,41,26
+"Worker Placement, Different Worker Types",4,17,14
+Line of Sight,5,14,37
+Contracts,6,17,14
+Line Drawing,7,26,21
+Storytelling,8,2,36
+Trick-taking,9,1,9
+Betting and Bluffing,10,52,49
+Ratio / Combat Results Table,11,14,37
+Variable Phase Order,12,69,1
+Commodity Speculation,13,12,13
+Worker Placement,14,17,14
+Market,15,16,33
+Closed Drafting,16,40,57
+Semi-Cooperative Game,17,20,10
+Measurement Movement,18,14,54
+Events,19,14,37
+Voting,20,7,10
+Square Grid,21,35,30
+End Game Bonuses,22,17,14
+Race,23,56,4
+Deduction,24,20,38
+"Deck, Bag, and Pool Building",25,2,42
+Zone of Control,26,14,37
+Paper-and-Pencil,27,26,21
+Acting,28,7,24
+Enclosure,29,65,77
+Card Play Conflict Resolution,30,18,6
+Pattern Recognition,31,15,59
+Cooperative Game,32,2,36
+Scenario / Mission / Campaign Game,33,14,37
+Deck Construction,34,13,76
+Victory Points as a Resource,35,16,33
+Network and Route Building,36,12,13
+Connections,37,28,17
+Turn Order: Progressive,38,17,14
+Push Your Luck,39,2,3
+Auction/Bidding,40,78,31
+Team-Based Game,41,7,10
+Secret Unit Deployment,42,34,75
+Grid Movement,43,14,37
+Set Collection,44,2,3
+Memory,45,63,72
+Action Queue,46,22,40
+Hand Management,47,2,3
+Simulation,48,14,37
+Point to Point Movement,49,37,3
+Area Majority / Influence,50,2,3
+Modular Board,51,2,3
+Stock Holding,52,12,13
+Pattern Building,53,15,30
+Chit-Pull System,54,14,37
+Roll / Spin and Move,55,78,31
+Player Elimination,56,78,31
+Hexagon Grid,57,14,37
+Real-Time,58,11,15
+Solo / Solitaire Game,59,2,36
+Trading,60,78,31
+Pick-up and Deliver,61,12,13
+Rock-Paper-Scissors,62,68,71
+Dice Rolling,63,14,37
+Movement Points,64,14,37
+Tile Placement,65,15,30
+Track Movement,66,56,4
+Area Movement,67,2,3
+Hidden Roles,68,20,10
+Take That,69,2,3
+Income,70,16,33
+Action Points,71,2,3
+Simultaneous Action Selection,72,22,40
+Campaign / Battle Card Driven,73,37,3
+Stacking and Balancing,74,5,2
+Open Drafting,75,2,3
+Role Playing,76,2,36
+Variable Set-up,77,14,37
+Area-Impulse,78,51,45
+Variable Player Powers,79,2,3

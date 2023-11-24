@@ -11,7 +11,14 @@ import pandas as pd
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     # dataFrame = pd.read_csv("RawData/Aggregated.csv")
-    #
+
+    # unfiltered but formated filter by user rateing count
+    dataFrame = pd.read_csv("RawData/ReformatedData_unfiltered.csv")
+    maxCount = 5
+    ratingFilterDF =  reformatData.FilterByNumRating(dataFrame,maxCount)
+    print(ratingFilterDF.nunique())
+    ratingFilterDF.to_csv("RawData/ReformatedData_numratingover_"+str(maxCount)+".csv")
+
     # reformated = reformatData.addMechanics(dataFrame)
     #print(reformated.head(10))
     #filteredDF.to_csv("ReformattedData_filterTest.csv")
@@ -64,10 +71,10 @@ if __name__ == '__main__':
     # DataAnalysis.MechanicsGraphics(dataFrame,26)
     # plt.show()
 
-    # filtered graphics
-    dataFrame = pd.read_csv("ReformattedData_final_cleaned.csv")
-    # DataAnalysis.GnerateHistograms(dataFrame)
+    # # filtered graphics
+    # dataFrame = pd.read_csv("ReformattedData_final_cleaned.csv")
+    # # DataAnalysis.GnerateHistograms(dataFrame)
+    # # plt.show()
+    # DataAnalysis.MechanicsGraphics(dataFrame,29)
     # plt.show()
-    DataAnalysis.MechanicsGraphics(dataFrame,29)
-    plt.show()
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

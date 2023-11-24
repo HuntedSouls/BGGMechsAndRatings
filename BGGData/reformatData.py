@@ -6,7 +6,6 @@ def repeatUniqueGameIDS(df):
     lastGameID = 0
     countIndexes = []
     data = {}
-    # count = 0
     for series_name, series in df.items():
         # print(series_name)
         if series_name != "implementation" and series_name != "mechanic":
@@ -37,9 +36,6 @@ def repeatUniqueGameIDS(df):
                     else:
                         data[series_name].append(np.nan)
 
-                    if (count > 10):
-                        count = 0
-                        break
                 if skipCounter < (countIndexes[gameIDCounter] - 1):
                     skipCounter = skipCounter + 1
                 else:
@@ -53,7 +49,6 @@ def repeatUniqueGameIDS(df):
 def addMechanics(df):
     reformated = df.groupby('gameID').first().reset_index()
     reformated = reformated.drop(["mechanic", "implementation"], axis=1)
-    print("Reformation done on baisc, starting mech part")
     mechlist = df['mechanic'].unique()
     mechlist = np.delete(mechlist, 0)
     gameIDList = reformated["gameID"].unique()
@@ -75,7 +70,7 @@ def addMechanics(df):
     return reformated.join(mechanicDF)
 
 def JoinMehcanics(newName, listOfNames, dataframe):
-    newOperator = pandas.Series([0]*len(dataframe.index))
+    newOperator = pd.Series([0]*len(dataframe.index))
     for name in listOfNames:
         newOperator = newOperator | dataframe[name]
         dataframe=dataframe.drop(columns=[name])
@@ -193,3 +188,7 @@ def mixStddev(sameplsizes,stddevs):
     for i in range(len(stddevs)):
         total = total + (stddevs[i]**2)/sameplsizes[i]
     return math.sqrt(total)
+
+def FilterByNumRating(dataframe,threshold):
+    dataframe = dataframe.query("usersrated >="+str(threshold))
+    return dataframe

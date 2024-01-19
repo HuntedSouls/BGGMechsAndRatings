@@ -13,11 +13,11 @@ if __name__ == '__main__':
     # dataFrame = pd.read_csv("RawData/Aggregated.csv")
 
     # unfiltered but formated filter by user rateing count
-    dataFrame = pd.read_csv("RawData/ReformatedData_unfiltered.csv")
-    maxCount = 5
-    ratingFilterDF =  reformatData.FilterByNumRating(dataFrame,maxCount)
-    print(ratingFilterDF.nunique())
-    ratingFilterDF.to_csv("RawData/ReformatedData_numratingover_"+str(maxCount)+".csv")
+    # dataFrame = pd.read_csv("RawData/ReformatedData_unfiltered.csv")
+    # maxCount = 5
+    # ratingFilterDF =  reformatData.FilterByNumRating(dataFrame,maxCount)
+    # print(ratingFilterDF.nunique())
+    # ratingFilterDF.to_csv("RawData/ReformatedData_numratingover_"+str(maxCount)+".csv")
 
     # reformated = reformatData.addMechanics(dataFrame)
     #print(reformated.head(10))
@@ -65,13 +65,16 @@ if __name__ == '__main__':
 
     ### data analysis part
     # unfiltered graphics
-    # dataFrame = pd.read_csv("RawData/ReformatedData_unfiltered.csv")
+    dataFrame = pd.read_csv("RawData/ReformatedData_unfiltered.csv")
+    fliteredDf = reformatData.FilterRankData(dataFrame)
+    fliteredDf["average"].describe()
+
     # DataAnalysis.GnerateHistograms(dataFrame)
     # plt.show()
     # DataAnalysis.MechanicsGraphics(dataFrame,26)
     # plt.show()
 
-    # # filtered graphics
+    # # # filtered graphics
     # dataFrame = pd.read_csv("ReformattedData_final_cleaned.csv")
     # # DataAnalysis.GnerateHistograms(dataFrame)
     # # plt.show()
